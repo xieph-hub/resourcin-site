@@ -24,8 +24,8 @@ export default function HomePage() {
               bridges the gap between talent and opportunity
             </span>
             . We design senior searches, build hiring pipelines and create
-            simple, practical people systems for teams across Nigeria, Africa
-            and beyond.
+            simple, practical hiring processes for teams across Nigeria,
+            Africa and beyond.
           </p>
 
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-slate-700">
@@ -53,37 +53,40 @@ export default function HomePage() {
             </Link>
           </div>
 
+          {/* Chips aligned with your services */}
           <div className="mt-6 flex flex-wrap gap-3 text-[11px] text-slate-600">
             <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1">
-              Based in Lagos, serving Africa &amp; beyond
+              Contingent &amp; retained search
             </span>
             <span className="inline-flex items-center rounded-full bg-brandLightGreen/10 px-3 py-1 text-brandDarkGreen">
-              Executive &amp; senior hiring
+              Embedded recruiters &amp; RPO
             </span>
             <span className="inline-flex items-center rounded-full bg-brandYellow/10 px-3 py-1 text-brandBlue">
-              Embedded HR &amp; people operations
+              White-label job board (coming soon)
             </span>
           </div>
         </div>
 
         {/* Right: Employer / Talent panels */}
         <div className="space-y-4">
+          {/* For employers */}
           <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
             <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
               For employers
             </p>
             <h2 className="mt-2 text-sm font-semibold text-slate-900">
-              Talent and people solutions that scale with your business.
+              Talent acquisition, search &amp; hiring models.
             </h2>
             <p className="mt-2 text-xs leading-relaxed text-slate-700">
-              We support founders, CEOs and HR leaders with senior recruitment,
-              embedded HR and people operations projects – from first hires to
-              multi-market teams.
+              We help growth-focused teams with contingent and retained search,
+              repeat-role pipelines, and flexible embedded recruiter / RPO
+              style engagements – so you can hire with conviction, not guesswork.
             </p>
             <ul className="mt-3 space-y-1 text-[11px] text-slate-600">
-              <li>• Executive &amp; specialist searches.</li>
-              <li>• Embedded HR / PeopleOS support.</li>
-              <li>• Compensation, job architecture &amp; org design.</li>
+              <li>• Talent acquisition (contingent search).</li>
+              <li>• Executive &amp; leadership search (retained).</li>
+              <li>• Talent pipelining &amp; bench building for repeat roles.</li>
+              <li>• Embedded recruiter &amp; RPO squads; EOR via partners.</li>
             </ul>
             <div className="mt-4 flex flex-wrap gap-2">
               <Link
@@ -102,6 +105,7 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* For talent */}
           <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
             <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
               For talent
@@ -120,6 +124,7 @@ export default function HomePage() {
               <li>• A long-term view of your career, not just the next offer.</li>
             </ul>
             <div className="mt-4 flex flex-wrap gap-2">
+              {/* Update this when ThinkATS / jobs is live */}
               <Link
                 href="/contact"
                 className="text-[11px] font-semibold text-brandBlue hover:underline"
