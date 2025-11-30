@@ -180,8 +180,7 @@ export default function RequestTalentForm() {
         </p>
         <button
           type="submit"
-          disabled={status === "submitting"}
-          className="inline-flex items-center rounded-full bg-[#172965] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#101b47] disabled:cursor-not-allowed disabled:opacity-70"
+          disabled={status === "submitting"}          className="inline-flex items-center rounded-full bg-[#172965] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#101b47] disabled:cursor-not-allowed disabled:opacity-70"
         >
           {status === "submitting" ? "Sending…" : "Submit brief"}
         </button>
