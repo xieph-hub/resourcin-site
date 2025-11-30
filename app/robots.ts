@@ -1,11 +1,17 @@
 // app/robots.ts
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/site";
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.resourcin.com";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/" },
-    sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+      },
+    ],
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }
