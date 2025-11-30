@@ -1,8 +1,7 @@
 // app/page.tsx
-import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Resourcin | Recruitment & Human Capital Advisors",
   description:
     "Resourcin Human Capital Advisors Limited connects talent with opportunity – delivering sharper, faster and more honest hiring decisions for employers and talent.",
@@ -56,50 +55,4 @@ export default function HomePage() {
               href="/about"
               className="inline-flex items-center rounded-full border border-slate-300 px-5 py-2.5 text-xs font-semibold text-slate-800 hover:border-brandBlue hover:bg-brandBlue/5"
             >
-              Learn about Resourcin
-            </Link>
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-3 text-[11px] text-slate-600">
-            <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1">
-              Based in Lagos, serving Africa &amp; beyond
-            </span>
-            <span className="inline-flex items-center rounded-full bg-brandLightGreen/10 px-3 py-1 text-brandDarkGreen">
-              Executive &amp; senior hiring
-            </span>
-            <span className="inline-flex items-center rounded-full bg-brandYellow/10 px-3 py-1 text-brandBlue">
-              Embedded HR &amp; people operations
-            </span>
-          </div>
-        </div>
-
-        {/* Right: Employer / Talent panels */}
-        <div className="space-y-4">
-          <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
-              For employers
-            </p>
-            <h2 className="mt-2 text-sm font-semibold text-slate-900">
-              Talent and people solutions that scale with your business.
-            </h2>
-            <p className="mt-2 text-xs leading-relaxed text-slate-700">
-              We support founders, CEOs and HR leaders with senior recruitment,
-              embedded HR and people operations projects – from first hires to
-              multi-market teams.
-            </p>
-            <ul className="mt-3 space-y-1 text-[11px] text-slate-600">
-              <li>• Executive &amp; specialist searches.</li>
-              <li>• Embedded HR / PeopleOS support.</li>
-              <li>• Compensation, job architecture &amp; org design.</li>
-            </ul>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <Link
-                href="/services"
-                className="text-[11px] font-semibold text-brandBlue hover:underline"
-              >
-                Explore services
-              </Link>
-              <span className="text-[11px] text-slate-400">•</span>
-              <Link
-                href="/for-employers/request-talent"
-                className="text
+              Learn about Res
