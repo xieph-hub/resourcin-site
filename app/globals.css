@@ -2,21 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Light theme by default */
 :root {
   color-scheme: light;
 }
 
-/* Global body styling (also backed up by body class in layout.tsx) */
 body {
   @apply bg-slate-50 text-slate-900 antialiased;
 }
 
-/* Links – use brand blue by default */
+/* Links – use brand blue by default (plain CSS, no @apply) */
 a {
-  @apply text-brandBlue;
+  color: #172965;
 }
 
 a:hover {
-  @apply underline;
+  text-decoration: underline;
 }
