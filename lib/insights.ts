@@ -26,6 +26,9 @@ if (!databaseId) {
   throw new Error("Missing NOTION_DATABASE_ID in env");
 }
 
+// Tell TypeScript we’ve already validated this
+const NOTION_DATABASE_ID = databaseId as string;
+
 export type InsightMeta = {
   id: string;
   title: string;
@@ -39,7 +42,7 @@ export type InsightMeta = {
 
 export async function getInsightsList(): Promise<InsightMeta[]> {
   const response = await notion.databases.query({
-    database_id: databaseId,
+    database_id: NOTION_DATABASE_ID,
     sorts: [
       {
         property: "Date",
@@ -54,6 +57,7 @@ export async function getInsightsList(): Promise<InsightMeta[]> {
 
   const insights = await Promise.all(pages.map(mapPageToInsight));
 
+  // Only keep pages that actually have a slug + title
   return insights.filter((i) => i.slug && i.title);
 }
 
@@ -63,7 +67,7 @@ export async function getInsightBySlug(
   if (!slug) return null;
 
   const response = await notion.databases.query({
-    database_id: databaseId,
+    database_id: NOTION_DATABASE_ID,
     filter: {
       property: "Slug",
       rich_text: {
@@ -93,7 +97,7 @@ export async function getInsightBlocks(
       page_size: 100,
     });
 
-      blocks.push(
+    blocks.push(
       ...response.results.filter(
         (b): b is BlockObjectResponse => b.object === "block"
       )
@@ -171,6 +175,11 @@ function getDateProperty(
   return prop.date.start;
 }
 
+/**
+ * Robust cover resolver:
+ * 1) Try "CoverURL (optional)" / variants as URL, text, or files.
+ * 2) Fallback to the page cover (page.cover).
+ */
 function getCoverUrl(page: PageObjectResponse): string | null {
   const props = page.properties as any;
 
@@ -185,10 +194,12 @@ function getCoverUrl(page: PageObjectResponse): string | null {
     const prop = props[name];
     if (!prop) continue;
 
+    // URL property
     if (prop.type === "url" && prop.url) {
       return prop.url;
     }
 
+    // Rich text property
     if (prop.type === "rich_text" && prop.rich_text?.length) {
       const text = prop.rich_text
         .map((t: any) => t.plain_text)
@@ -197,6 +208,7 @@ function getCoverUrl(page: PageObjectResponse): string | null {
       if (text) return text;
     }
 
+    // Files & media property
     if (prop.type === "files" && prop.files?.length) {
       const file = prop.files[0];
       if (file.type === "external") {
@@ -208,6 +220,7 @@ function getCoverUrl(page: PageObjectResponse): string | null {
     }
   }
 
+  // Fallback to Notion page cover
   if (page.cover) {
     if (page.cover.type === "external") {
       return page.cover.external.url;
@@ -220,21 +233,30 @@ function getCoverUrl(page: PageObjectResponse): string | null {
   return null;
 }
 
+/**
+ * Category can be:
+ * - select / multi_select
+ * - relation to a Category table
+ * - plain rich_text (fallback)
+ */
 async function getCategoryProperty(
   page: PageObjectResponse
 ): Promise<string | null> {
   const prop = (page.properties as any)["Category"];
   if (!prop) return null;
 
+  // Simple select
   if (prop.type === "select") {
     return prop.select?.name ?? null;
   }
 
+  // Multi-select (we take the first option for now)
   if (prop.type === "multi_select") {
     if (!prop.multi_select.length) return null;
     return prop.multi_select[0].name ?? null;
   }
 
+  // Relation to Category table – use the related page's title
   if (prop.type === "relation") {
     if (!prop.relation || !prop.relation.length) return null;
     const first = prop.relation[0];
@@ -255,6 +277,7 @@ async function getCategoryProperty(
     return null;
   }
 
+  // Fallback: treat as text
   if (prop.type === "rich_text") {
     const text = prop.rich_text
       .map((t: any) => t.plain_text)
