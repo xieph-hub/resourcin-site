@@ -1,36 +1,48 @@
 // app/sitemap.ts
 import type { MetadataRoute } from "next";
-import { getAllPosts } from "@/lib/cms";
-import { SITE_URL } from "@/lib/site";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = SITE_URL || "https://resourcin.com";
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.resourcin.com";
 
-  // Core static routes you have in navigation
-  const staticRoutes: MetadataRoute.Sitemap = [
-    "",
-    "/jobs",
-    "/talent-network",
-    "/for-candidates",
-    "/for-employers",
-    "/services",
-    "/case-studies",
-    "/insights",
-    "/about",
-    "/contact",
-    "/request-talent",
-    "/login",
-  ].map((path) => ({
-    url: `${baseUrl}${path}`,
-    lastModified: new Date(),
-  }));
+export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
 
-  // Dynamic Insights posts from Notion
-  const posts = await getAllPosts();
-  const insightRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${baseUrl}/insights/${post.slug}`,
-    lastModified: post.date ? new Date(post.date) : new Date(),
-  }));
-
-  return [...staticRoutes, ...insightRoutes];
+  return [
+    {
+      url: `${siteUrl}/`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 1,
+    },
+    {
+      url: `${siteUrl}/services`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/for-employers/request-talent`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/request-talent`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/insights`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/contact`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+  ];
 }
