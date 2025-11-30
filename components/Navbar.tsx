@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
@@ -36,22 +37,16 @@ export default function Navbar() {
           className="flex items-center gap-2"
           onClick={() => setOpen(false)}
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#172965] text-xs font-bold text-white shadow-sm">
-            R
-          </div>
-          <div className="leading-tight">
-            <div className="flex items-baseline gap-1">
-              <span className="text-sm font-semibold tracking-tight text-slate-900">
-                Resourcin
-              </span>
-              <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-[#306B34]">
-                Human Capital
-              </span>
-            </div>
-            <p className="text-[10px] text-slate-500">
-              Connecting talent with opportunity
-            </p>
-          </div>
+          <span className="inline-flex items-center">
+            <Image
+              src="/resourcin-logo.svg"
+              alt="Resourcin Human Capital Advisors"
+              width={140}
+              height={32}
+              priority
+            />
+          </span>
+          <span className="sr-only">Resourcin – Human Capital Advisors</span>
         </Link>
 
         {/* Desktop nav */}
@@ -76,7 +71,7 @@ export default function Navbar() {
           {/* Right side CTAs */}
           <div className="flex items-center gap-3">
             <Link
-              href="/request-talent"
+              href="/for-employers/request-talent"
               className="hidden text-xs font-medium text-slate-600 underline-offset-4 hover:text-slate-900 hover:underline lg:inline-block"
             >
               For employers
@@ -149,7 +144,7 @@ export default function Navbar() {
                 </p>
                 <div className="flex flex-col gap-2">
                   <Link
-                    href="/request-talent"
+                    href="/for-employers/request-talent"
                     className="text-xs text-slate-700 hover:text-slate-900"
                     onClick={() => setOpen(false)}
                   >
