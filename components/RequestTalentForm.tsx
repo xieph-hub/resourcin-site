@@ -1,3 +1,4 @@
+// components/RequestTalentForm.tsx
 "use client";
 
 import { FormEvent, useState } from "react";
@@ -11,7 +12,6 @@ export default function RequestTalentForm() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    // ✅ Store the form element BEFORE any await
     const form = e.currentTarget;
 
     setStatus("submitting");
@@ -20,6 +20,7 @@ export default function RequestTalentForm() {
     try {
       const formData = new FormData(form);
 
+      // Minimal API call – you can wire this to email/Notion/DB later.
       const res = await fetch("/api/request-talent", {
         method: "POST",
         body: formData,
@@ -31,7 +32,7 @@ export default function RequestTalentForm() {
       }
 
       setStatus("success");
-      form.reset(); // ✅ use the stored form, not e.currentTarget
+      form.reset();
     } catch (err) {
       console.error(err);
       setStatus("error");
@@ -180,7 +181,8 @@ export default function RequestTalentForm() {
         </p>
         <button
           type="submit"
-          disabled={status === "submitting"}          className="inline-flex items-center rounded-full bg-[#172965] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#101b47] disabled:cursor-not-allowed disabled:opacity-70"
+          disabled={status === "submitting"}
+          className="inline-flex items-center rounded-full bg-[#172965] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#101b47] disabled:cursor-not-allowed disabled:opacity-70"
         >
           {status === "submitting" ? "Sending…" : "Submit brief"}
         </button>
