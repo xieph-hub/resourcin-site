@@ -22,6 +22,7 @@ function formatDate(value: string | null): string | null {
   if (!value) return null;
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return null;
+
   return date.toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
@@ -93,3 +94,23 @@ export default function InsightsBrowser({ insights }: InsightsBrowserProps) {
                     <p className="mt-2 line-clamp-3 text-xs leading-relaxed text-slate-700">
                       {post.excerpt}
                     </p>
+                  )}
+
+                  <div className="mt-4 flex items-center justify-between text-[11px] text-slate-600">
+                    <Link
+                      href={`/insights/${post.slug}`}
+                      className="inline-flex items-center gap-1 font-semibold text-brandBlue hover:underline"
+                    >
+                      Read insight
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      )}
+    </section>
+  );
+}
